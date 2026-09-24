@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using TaskTrack.Repo.Models;
+using Task = TaskTrack.Repo.Models.Task;
 
 namespace TaskTrack.Repo.Data;
 
