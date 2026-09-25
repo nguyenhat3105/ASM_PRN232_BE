@@ -29,12 +29,17 @@ call('GET','/api/tasks/search?status=9',expected=400)
 call('POST','/api/departments',{'departmentName':' ','departmentDescription':''},400)
 department=call('POST','/api/departments',{'departmentName':'QA '+suffix,'departmentDescription':'Disposable integration test'},201)
 did=department['departmentId']
+call('PUT',f'/api/departments/{did}',{'departmentName':'QA '+suffix,'departmentDescription':'Updated test description'})
+assert call('GET',f'/api/departments/search?name={suffix}')[0]['departmentId']==did
 project_body={'projectName':'QA '+suffix,'startDate':'2026-01-01','endDate':'2026-12-31','status':0,'departmentId':did}
 call('POST','/api/projects',{**project_body,'endDate':'2025-01-01'},400)
 project=call('POST','/api/projects',project_body,201); pid=project['projectId']
+call('PUT',f'/api/projects/{pid}',{**project_body,'description':'Updated project'})
+assert call('GET',f'/api/projects/search?name={suffix}&status=0&departmentId={did}')[0]['projectId']==pid
 call('DELETE',f'/api/departments/{did}',expected=400)
 tag1=call('POST','/api/tags',{'tagName':'qa-a-'+suffix,'color':'#ABCDEF'},201)
 tag2=call('POST','/api/tags',{'tagName':'qa-b-'+suffix,'color':None},201)
+call('PUT',f"/api/tags/{tag2['tagId']}",{'tagName':'qa-b-'+suffix,'color':'#123456'})
 call('POST','/api/tags',{'tagName':'QA-A-'+suffix},400)
 call('POST','/api/tags',{'tagName':'bad-'+suffix,'color':'invalid'},400)
 task_body={'title':'QA '+suffix,'projectId':pid,'status':0,'priority':0,'dueDate':'2020-01-01','tagIDs':[tag1['tagId'],tag1['tagId']]}
