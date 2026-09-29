@@ -6,7 +6,13 @@ ASP.NET Core 8, PostgreSQL and EF Core Database First. The original five-table s
 
 Put a local connection string in `TaskTrack.API/appsettings.Development.json` under `ConnectionStrings:TaskManagement`. This file is ignored by Git. Never commit database credentials. Alternatively set `DATABASE_URL`.
 
-StudentID and ClassCode in the solution name are placeholders pending the student's identifiers.
+Student: QE190017 · Class: SE19B.NET
+
+Solution: `QE190017_SE19B.NET_Ass1_BE.sln`.
+
+## Database diagram
+
+![TaskManagementDB entity relationships](docs/ERD.png)
 
 ## Implementation sequence
 

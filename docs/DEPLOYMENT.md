@@ -6,7 +6,7 @@
 2. Use the existing `TaskManagementDB`. The SQL under `database/` is the original destructive initialization script, for a new disposable database only. Do not rerun it on an existing database.
 3. Put `ConnectionStrings:TaskManagement` into `TaskTrack.API/appsettings.Development.json` (ignored by Git).
 4. Run `dotnet tool restore` and `dotnet restore`.
-5. Run `dotnet run --project TaskTrack.API --no-launch-profile --urls http://localhost:5080 --environment Development`.
+5. In PowerShell, set `$env:ASPNETCORE_ENVIRONMENT="Development"` and `$env:DOTNET_ENVIRONMENT="Development"`, then run `dotnet run --project TaskTrack.API --no-launch-profile --urls http://localhost:5080`.
 6. Open `http://localhost:5080/swagger` and `http://localhost:5080/health/ready`.
 
 The application never calls EnsureCreated, Migrate or initialization SQL.
