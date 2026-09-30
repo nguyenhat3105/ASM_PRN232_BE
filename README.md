@@ -23,3 +23,11 @@ Solution: `QE190017_SE19B.NET_Ass1_BE.sln`.
 5. Add schema-preserving extensions and deployment documentation.
 
 No automatic database creation, migrations or seed reset runs on application startup.
+
+## Live deployment
+
+- Frontend: https://asm-prn-232-fe.vercel.app
+- Swagger: https://asm-prn232-be.onrender.com/swagger/index.html
+- Readiness: https://asm-prn232-be.onrender.com/health/ready
+
+Render Free PostgreSQL expires on October 29, 2026. Free web services sleep when idle and may need time to wake up.
