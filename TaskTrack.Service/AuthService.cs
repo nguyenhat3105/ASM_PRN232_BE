@@ -62,6 +62,9 @@ public sealed class AuthService(IAccountRepository accounts, IConfiguration conf
         var credentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secret)), SecurityAlgorithms.HmacSha256);
         var claims = new[]
         {
+            new Claim("AccountID", account.AccountId.ToString()),
+            new Claim("Email", account.Email),
+            new Claim("Role", account.Role == 1 ? "Admin" : "Staff"),
             new Claim(ClaimTypes.NameIdentifier, account.AccountId.ToString()),
             new Claim(ClaimTypes.Email, account.Email),
             new Claim(ClaimTypes.Name, account.FullName),
