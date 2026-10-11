@@ -31,3 +31,14 @@ No automatic database creation, migrations or seed reset runs on application sta
 - Readiness: https://asm-prn232-be.onrender.com/health/ready
 
 Render Free PostgreSQL expires on October 29, 2026. Free web services sleep when idle and may need time to wake up.
+
+## Assignment 2 authentication
+
+All read endpoints remain public. Every create, update, delete, task restore, and task status change now requires a JWT bearer token. Account management endpoints require the `Admin` role.
+
+Before deploying the backend, configure these Render environment variables:
+
+- `JWT_SECRET`: a unique secret with at least 32 characters.
+- `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_FULL_NAME`: used once to seed the required Admin account when the service starts. They are not stored in source control.
+
+The service creates the `SystemAccount` table and nullable task audit columns (`CreatedByID`, `UpdatedByID`) safely when it starts. Registering through `POST /api/auth/register` always creates a Staff account. Login returns a signed token with AccountID, email, role, and a 24-hour expiry.
