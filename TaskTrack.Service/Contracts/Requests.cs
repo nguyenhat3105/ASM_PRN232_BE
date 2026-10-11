@@ -62,3 +62,22 @@ public sealed class StatusRequest
 {
     [Required, Range(0, 3)] public short? Status { get; set; }
 }
+
+public sealed class RegisterRequest
+{
+    [Required, StringLength(150, MinimumLength = 2)] public string FullName { get; set; } = "";
+    [Required, EmailAddress, StringLength(254)] public string Email { get; set; } = "";
+    [Required, StringLength(128, MinimumLength = 8)] public string Password { get; set; } = "";
+}
+
+public sealed class LoginRequest
+{
+    [Required, EmailAddress, StringLength(254)] public string Email { get; set; } = "";
+    [Required, StringLength(128, MinimumLength = 1)] public string Password { get; set; } = "";
+}
+
+public sealed class AccountUpdateRequest
+{
+    [Required, StringLength(150, MinimumLength = 2)] public string FullName { get; set; } = "";
+    [Range(0, 1)] public short Role { get; set; }
+}

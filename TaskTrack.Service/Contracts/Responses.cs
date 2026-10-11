@@ -9,3 +9,5 @@ public sealed record ProjectDto(int ProjectId, string ProjectName, string? Descr
 public sealed record TaskDto(int TaskId, string Title, string? Description, short Status, short Priority,
     DateOnly? DueDate, int ProjectId, string ProjectName, bool IsActive, DateTime CreatedDate,
     DateTime? ModifiedDate, IReadOnlyList<TagDto> Tags);
+public sealed record AccountDto(int AccountId, string FullName, string Email, short Role, DateTime CreatedDate);
+public sealed record AuthenticatedAccountDto(string Token, AccountDto Account);

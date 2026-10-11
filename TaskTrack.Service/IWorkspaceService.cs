@@ -14,13 +14,13 @@ public interface IWorkspaceService
     Task DeleteProject(int id, CancellationToken ct);
     Task<IReadOnlyList<TaskDto>> Tasks(TaskFilter filter, CancellationToken ct);
     Task<TaskDto> TaskItem(int id, CancellationToken ct);
-    Task<TaskDto> SaveTask(int? id, TaskRequest request, CancellationToken ct);
-    Task DeleteTask(int id, CancellationToken ct);
+    Task<TaskDto> SaveTask(int? id, TaskRequest request, int accountId, CancellationToken ct);
+    Task DeleteTask(int id, int accountId, CancellationToken ct);
     Task<IReadOnlyList<TagDto>> Tags(CancellationToken ct);
     Task<TagDto> SaveTag(int? id, TagRequest request, CancellationToken ct);
     Task DeleteTag(int id, CancellationToken ct);
     Task<IReadOnlyList<TaskDto>> Trash(CancellationToken ct);
-    Task<TaskDto> RestoreTask(int id, CancellationToken ct);
-    Task<TaskDto> ChangeTaskStatus(int id, short status, CancellationToken ct);
+    Task<TaskDto> RestoreTask(int id, int accountId, CancellationToken ct);
+    Task<TaskDto> ChangeTaskStatus(int id, short status, int accountId, CancellationToken ct);
     Task<bool> DatabaseReady(CancellationToken ct);
 }
