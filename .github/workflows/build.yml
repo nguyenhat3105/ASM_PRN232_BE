@@ -31,7 +31,20 @@ jobs:
         env:
           ConnectionStrings__TaskManagement: Host=localhost;Port=5432;Database=tasktrack_test;Username=tasktrack_test;Password=test_only
           ASPNETCORE_ENVIRONMENT: Production
+          JWT_SECRET: ci-only-signing-secret-with-at-least-32-characters
+          Swagger__Enabled: true
         run: |
           dotnet run --project TaskTrack.API --configuration Release --no-build --no-launch-profile --urls http://localhost:5081 > /tmp/tasktrack-api.log 2>&1 &
-          for i in $(seq 1 30); do curl -fsS http://localhost:5081/health/ready && break || sleep 1; done
+          ready=0
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:5081/health/ready; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" -ne 1 ]; then
+            cat /tmp/tasktrack-api.log
+            exit 1
+          fi
           python3 tests/api_integration.py http://localhost:5081
